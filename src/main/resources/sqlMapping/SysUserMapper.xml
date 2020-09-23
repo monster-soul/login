@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.study.dao.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.example.study.model.SysUser">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="userName" jdbcType="VARCHAR" property="userName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="dateCreated" jdbcType="DATE" property="dateCreated"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="remake" jdbcType="VARCHAR" property="remake"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, userName, password, dateCreated, phone, remake
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectPasswordByName" resultType="com.example.study.model.SysUser">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_user where userName = #{userName}
+    </select>
+    <insert id="insert" parameterType="com.example.study.model.SysUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_user (userName, password, dateCreated,
+        phone, remake)
+        values (#{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{dateCreated,jdbcType=DATE},
+        #{phone,jdbcType=VARCHAR}, #{remake,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.example.study.model.SysUser">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                userName,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="dateCreated != null">
+                dateCreated,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="remake != null">
+                remake,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreated != null">
+                #{dateCreated,jdbcType=DATE},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="remake != null">
+                #{remake,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.study.model.SysUser">
+        update sys_user
+        <set>
+            <if test="userName != null">
+                userName = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="dateCreated != null">
+                dateCreated = #{dateCreated,jdbcType=DATE},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="remake != null">
+                remake = #{remake,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.study.model.SysUser">
+    update sys_user
+    set userName = #{userName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      dateCreated = #{dateCreated,jdbcType=DATE},
+      phone = #{phone,jdbcType=VARCHAR},
+      remake = #{remake,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,30 @@
+server:
+  port: 7080
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/study?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 158.247.209.95
+    port: 6379
+    password: root
+    timeout: 3000
+logging:
+  file:
+    path: D:\data
+
+mybatis:
+  mapper-locations: classpath:sqlMapping/*.xml
+
+
+study:
+  login:
+    excludeUrl: /auth/login,/auth/logout,/sysUser/addSysUser
+  jwt:
+    secret: studypeng1717217
+    expiration: 1800
+    header: access_token
+
+
