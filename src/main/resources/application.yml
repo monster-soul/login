@@ -1,5 +1,5 @@
 server:
-  port: 7080
+  port: 80
 spring:
   datasource:
     username: root
@@ -7,7 +7,7 @@ spring:
     url: jdbc:mysql://localhost:3306/study?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 158.247.209.95
+    host: 127.0.0.1
     port: 6379
     password: root
     timeout: 3000
